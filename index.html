@@ -3,32 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Hot Community</title>
+    <title>Login with Discord - Super Hot</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Super Hot Community</h1>
-        <div id="login"></div>
-        <div id="user-profile" style="display: none;"></div>
-    </header>
-
-    <section id="posts">
-        <!-- Post content goes here -->
-        <div class="post">
-            <h2>Post Title</h2>
-            <p>Post content goes here.</p>
-            <div class="actions">
-                <button class="like-button">Like</button>
-                <button class="comment-button">Comment</button>
-            </div>
-            <div class="comments" style="display: none;">
-                <!-- Comments will be displayed here -->
-            </div>
-        </div>
-    </section>
-
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3/dist/crate.js"></script>
+    <div class="top-bar">
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Forums</a></li>
+            <li class="logo-container"><img src="superhot-logo.png" alt="Super Hot Logo"></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">About</a></li>
+            <li class="login-container"><a href="https://discord.com/api/oauth2/authorize?client_id=1249013783637000252&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=identify%20email" class="login-button">Login with Discord</a></li>
+        </ul>
+    </div>
 </body>
 </html>

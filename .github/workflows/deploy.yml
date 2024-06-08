@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master  # or master if that's your default branch
+      - master # or master if that's your default branch
 
 jobs:
   deploy:
@@ -12,14 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Build and Deploy
-        run: |
-          npm install  # or any other build commands you need
-          npm run build  # or any other build commands you need
-          cp -r dist/* ./  # copy your built files to the root directory
-
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .  # specify the directory containing your built files
+        run: |
+          cp -r ./* $GITHUB_WORKSPACE/

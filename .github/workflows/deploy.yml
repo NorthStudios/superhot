@@ -1,16 +1,1 @@
-name: Deploy to GitHub Pages
 
-on:
-  push:
-    branches:
-      - master # or master if that's your default branch
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Deploy to GitHub Pages
-        run: cp -r --force ./* $GITHUB_WORKSPACE/

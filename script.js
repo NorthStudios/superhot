@@ -2,90 +2,48 @@ const DISCORD_CLIENT_ID = '1249013783637000252';
 const DISCORD_REDIRECT_URI = 'https://northstudios.github.io/superhot/';
 const DISCORD_OAUTH_URL = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(DISCORD_REDIRECT_URI)}&response_type=code&scope=identify%20email%20connections%20guilds`;
 
-// Elements
-const loginButton = document.getElementById('login-discord');
-const logoutButton = document.getElementById('logout');
-const userInfo = document.getElementById('user-info');
-const userName = document.getElementById('user-name');
-const userAvatar = document.getElementById('user-avatar');
-const submitSection = document.getElementById('submit');
-const submitPostButton = document.getElementById('submit-post');
+const LOGIN_BUTTON_ID = 'login';
+const USER_PROFILE_ID = 'user-profile';
+const DISCORD_API_URL = 'https://discord.com/api';
 
-// Event listener for login with Discord button
-loginButton.addEventListener('click', () => {
-    window.location.href = DISCORD_OAUTH_URL;
-});
-
-// Event listener for logout button
-logoutButton.addEventListener('click', () => {
-    logout();
-});
-
-// Function to handle Discord login callback
-function handleDiscordLoginCallback() {
-    const params = new URLSearchParams(window.location.search); // Extract parameters from URL
-    if (params.has('code')) {
-        const code = params.get('code');
-        // Exchange the authorization code for an access token
-        fetch(`https://discord.com/api/oauth2/token`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                'client_id': DISCORD_CLIENT_ID,
-                'client_secret': 'YOUR_DISCORD_CLIENT_SECRET', // Replace with your Discord Client Secret
-                'grant_type': 'authorization_code',
-                'code': code,
-                'redirect_uri': DISCORD_REDIRECT_URI
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            const { access_token } = data;
-            fetch('https://discord.com/api/users/@me', {
-                headers: {
-                    'Authorization': `Bearer ${access_token}`
-                }
-            })
-            .then(response => response.json())
-            .then(user => {
-                localStorage.setItem('discordUser', JSON.stringify(user));
-                updateUIForLoggedInUser(user);
-                // Redirect to remove code from URL
-                window.history.replaceState({}, document.title, "/");
-            });
-        });
-    }
+// Function to generate the Discord OAuth2 login URL
+function getLoginUrl() {
+    return `${DISCORD_API_URL}/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
 }
 
-// Function to update the UI for a logged-in user
-function updateUIForLoggedInUser(user) {
-    loginButton.style.display = 'none';
-    logoutButton.style.display = 'inline';
-    userInfo.style.display = 'flex';
-    userName.textContent = `Logged in as ${user.username}#${user.discriminator}`;
-    userAvatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
-    submitSection.style.display = 'block';
+// Function to handle login button click event
+function handleLogin() {
+    window.location.href = getLoginUrl();
 }
 
-// Function to logout the user
-function logout() {
-    localStorage.removeItem('discordUser');
-    loginButton.style.display = 'inline';
-    logoutButton.style.display = 'none';
-    userInfo.style.display = 'none';
-    submitSection.style.display = 'none';
-    window.location.href = "/";
+// Function to fetch user data after successful authentication
+async function fetchUserData(code) {
+    const response = await fetch(`${DISCORD_API_URL}/users/@me`, {
+        headers: {
+            Authorization: `Bearer ${code}`
+        }
+    });
+    const userData = await response.json();
+    return userData;
 }
 
-// Check if user is already logged in
-const storedUser = localStorage.getItem('discordUser');
-if (storedUser) {
-    updateUIForLoggedInUser(JSON.parse(storedUser));
+// Function to display user profile picture and username
+function displayUserProfile(userData) {
+    const userProfileElement = document.getElementById(USER_PROFILE_ID);
+    userProfileElement.innerHTML = `
+        <img src="https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png" alt="Profile Picture">
+        <span>Logged in as: ${userData.username}</span>
+    `;
 }
 
-// Check if this is a Discord login callback
-if (window.location.search.includes('code')) {
-    handleDiscordLoginCallback();
+// Check if the user is already authenticated
+const code = new URLSearchParams(window.location.search).get('code');
+if (code) {
+    fetchUserData(code)
+        .then(userData => displayUserProfile(userData))
+        .catch(error => console.error('Error fetching user data:', error));
+} else {
+    // Render the login button if the user is not authenticated
+    const loginButtonElement = document.getElementById(LOGIN_BUTTON_ID);
+    loginButtonElement.innerHTML = '<button onclick="handleLogin()">Login with Discord</button>';
 }

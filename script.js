@@ -1,6 +1,6 @@
 // Discord OAuth2 configuration
 const DISCORD_CLIENT_ID = '1249013783637000252';
-const DISCORD_REDIRECT_URI = 'http://localhost:3000/callback'; // Replace with your redirect URI
+const DISCORD_REDIRECT_URI = 'https://northstudios.github.io/superhot/'; // Replace with your redirect URI
 const DISCORD_OAUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(DISCORD_REDIRECT_URI)}&response_type=token&scope=identify`;
 
 // Event listener for login with Discord button

@@ -10,11 +10,22 @@
     <header>
         <h1>Super Hot Community</h1>
         <div id="login"></div>
-        <div id="user-profile"></div>
+        <div id="user-profile" style="display: none;"></div>
     </header>
 
     <section id="posts">
         <!-- Post content goes here -->
+        <div class="post">
+            <h2>Post Title</h2>
+            <p>Post content goes here.</p>
+            <div class="actions">
+                <button class="like-button">Like</button>
+                <button class="comment-button">Comment</button>
+            </div>
+            <div class="comments" style="display: none;">
+                <!-- Comments will be displayed here -->
+            </div>
+        </div>
     </section>
 
     <script src="script.js"></script>

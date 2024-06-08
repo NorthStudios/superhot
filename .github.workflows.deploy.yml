@@ -1,1 +1,2 @@
-
+- name: Deploy to GitHub Pages
+  run: cp -r --force ./* $GITHUB_WORKSPACE/

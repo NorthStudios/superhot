@@ -53,7 +53,7 @@ function handleDiscordLoginCallback() {
                 localStorage.setItem('discordUser', JSON.stringify(user));
                 updateUIForLoggedInUser(user);
                 // Redirect to remove code from URL
-                window.history.replaceState({}, document.title, "/superhot/");
+                window.history.replaceState({}, document.title, "/");
             });
         });
     }
@@ -76,7 +76,7 @@ function logout() {
     logoutButton.style.display = 'none';
     userInfo.style.display = 'none';
     submitSection.style.display = 'none';
-    window.location.href = '/superhot/';
+    window.location.href = "/";
 }
 
 // Check if user is already logged in
@@ -89,47 +89,3 @@ if (storedUser) {
 if (window.location.search.includes('code')) {
     handleDiscordLoginCallback();
 }
-
-// Simulated posts data
-let postsData = [
-    { id: 1, title: "First Post", content: "This is the first post!", likes: 0, comments: [] },
-    { id: 2, title: "Second Post", content: "This is the second post!", likes: 0, comments: [] },
-    { id: 3, title: "Third Post", content: "This is the third post!", likes: 0, comments: [] }
-];
-
-// Function to render posts
-function renderPosts(postsData) {
-    const postsList = document.getElementById('posts-list');
-    postsList.innerHTML = '';
-
-    postsData.forEach(post => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-            <div>
-                <h3>${post.title}</h3>
-                <p>${post.content}</p>
-                <button class="like-btn" data-id="${post.id}">Like (${post.likes})</button>
-                <button class="comment-btn" data-id="${post.id}">Comment</button>
-            </div>
-            <ul id="comments-${post.id}"></ul>
-        `;
-        postsList.appendChild(listItem);
-    });
-
-    // Add event listeners for like buttons
-    document.querySelectorAll('.like-btn').forEach(button => {
-        button.addEventListener('click', (event) => {
-            if (storedUser) {
-                const postId = parseInt(event.target.getAttribute('data-id'));
-                const post = postsData.find(p => p.id === postId);
-                post.likes += 1;
-                renderPosts(postsData);
-            } else {
-                alert('You need to be logged in to like posts.');
-            }
-        });
-    });
-}
-
-// Fetch and render initial posts
-renderPosts(postsData);

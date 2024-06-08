@@ -1,7 +1,7 @@
 // Discord OAuth2 configuration
 const DISCORD_CLIENT_ID = '1249013783637000252';
 const DISCORD_REDIRECT_URI = 'https://northstudios.github.io/superhot/'; // Replace with your redirect URI
-const DISCORD_OAUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(DISCORD_REDIRECT_URI)}&response_type=token&scope=identify`;
+const DISCORD_OAUTH_URL = `https://discord.com/oauth2/authorize?client_id=1249013783637000252&response_type=code&redirect_uri=https%3A%2F%2Fnorthstudios.github.io%2Fsuperhot%2F&scope=identify+email+connections+guilds`;
 
 // Event listener for login with Discord button
 document.getElementById('login-discord').addEventListener('click', () => {

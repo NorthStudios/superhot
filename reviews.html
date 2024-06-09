@@ -14,29 +14,80 @@
             <li class="logo-container"><img src="superhot-logo.png" alt="Super Hot Logo"></li>
             <li><a href="#">Events</a></li>
             <li><a href="#">About</a></li>
-            <li class="login-container" id="loginContainer">
-                <a href="https://discord.com/oauth2/authorize?client_id=1249013783637000252&response_type=code&redirect_uri=https%3A%2F%2Fnorthstudios.github.io%2Fsuperhot%2F&scope=identify+email+guilds+connections" class="login-button" id="loginButton">Login with Discord</a>
-            </li>
+            
         </ul>
     </header>
 
     <div class="container">
         <h1>Reviews</h1>
-        <div class="review">
-            <h2>Super Hot Review</h2>
-            <p>This game is amazing! The mechanics are unique and the visuals are stunning. I highly recommend it.</p>
-            <p>Rating: 5/5</p>
+        <div id="reviewsContainer">
+            <!-- Reviews will be dynamically added here -->
         </div>
-        <div class="review">
-            <h2>Another Review</h2>
-            <p>I've played many games, but Super Hot stands out with its innovative time-moves-only-when-you-move mechanic. It's a must-play for any gamer.</p>
-            <p>Rating: 4/5</p>
+
+        <!-- Review Form -->
+        <div class="review-form">
+            <h2>Add Your Review</h2>
+            <form id="reviewForm">
+                <label for="username">Your Name:</label><br>
+                <input type="text" id="username" name="username" required><br>
+
+                <label for="review">Your Review:</label><br>
+                <textarea id="review" name="review" required></textarea><br>
+
+                <label for="rating">Rating:</label><br>
+                <input type="number" id="rating" name="rating" min="1" max="5" required><br>
+
+                <button type="submit">Submit Review</button>
+            </form>
         </div>
-        <!-- Add more reviews here -->
     </div>
 
     <script>
-        // Your JavaScript code can go here if needed
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load existing reviews
+            const existingReviews = [
+                { username: 'User1', review: 'Great game!', rating: 5 },
+                { username: 'User2', review: 'Awesome mechanics!', rating: 4 }
+            ];
+
+            const reviewsContainer = document.getElementById('reviewsContainer');
+
+            existingReviews.forEach(review => {
+                const reviewElement = document.createElement('div');
+                reviewElement.classList.add('review');
+                reviewElement.innerHTML = `
+                    <h2>${review.username}</h2>
+                    <p>${review.review}</p>
+                    <p>Rating: ${review.rating}/5</p>
+                `;
+                reviewsContainer.appendChild(reviewElement);
+            });
+
+            // Handle form submission
+            const reviewForm = document.getElementById('reviewForm');
+            reviewForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const reviewText = document.getElementById('review').value;
+                const rating = document.getElementById('rating').value;
+
+                // Create a new review element
+                const newReviewElement = document.createElement('div');
+                newReviewElement.classList.add('review');
+                newReviewElement.innerHTML = `
+                    <h2>${username}</h2>
+                    <p>${reviewText}</p>
+                    <p>Rating: ${rating}/5</p>
+                `;
+
+                // Add the new review to the reviews container
+                reviewsContainer.appendChild(newReviewElement);
+
+                // Clear the form fields
+                reviewForm.reset();
+            });
+        });
     </script>
 </body>
 </html>

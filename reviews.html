@@ -49,12 +49,10 @@
             const reviewsContainer = document.getElementById('reviewsContainer');
             const reviewForm = document.getElementById('reviewForm');
 
-            // Load existing reviews from localStorage
-            const existingReviews = JSON.parse(localStorage.getItem('reviews')) || [];
-
             // Function to render reviews
             function renderReviews() {
                 reviewsContainer.innerHTML = '';
+                const existingReviews = JSON.parse(localStorage.getItem('reviews')) || [];
                 existingReviews.forEach(review => {
                     const reviewElement = document.createElement('div');
                     reviewElement.classList.add('review');
@@ -83,6 +81,7 @@
                 const newReview = { username, review: reviewText, rating };
 
                 // Add the new review to existing reviews
+                const existingReviews = JSON.parse(localStorage.getItem('reviews')) || [];
                 existingReviews.push(newReview);
 
                 // Save the updated reviews to localStorage

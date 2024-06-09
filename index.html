@@ -34,10 +34,10 @@
                 .then(response => response.json())
                 .then(user => {
                     if (user) {
-                        document.getElementById('loginContainer').remove(); // Remove the login button container
+                        document.getElementById('loginContainer').style.display = 'none'; // Hide the login container
                         const welcomeMessage = document.getElementById('welcomeMessage');
                         welcomeMessage.textContent = `Welcome, ${user.username}!`;
-                        document.getElementById('welcomeContainer').style.display = 'block';
+                        document.getElementById('welcomeContainer').style.display = 'block'; // Display the welcome message container
                     }
                 });
         });

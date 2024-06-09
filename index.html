@@ -17,9 +17,6 @@
             <li class="login-container" id="loginContainer">
                 <a href="https://discord.com/oauth2/authorize?client_id=1249013783637000252&response_type=code&redirect_uri=https%3A%2F%2Fnorthstudios.github.io%2Fsuperhot%2F&scope=identify+email+guilds+connections" class="login-button" id="loginButton">Login with Discord</a>
             </li>
-            <li class="welcome-container" id="welcomeContainer" style="display: none;">
-                <span id="welcomeMessage">Welcome, User!</span>
-            </li>
         </ul>
     </header>
 
@@ -34,10 +31,11 @@
                 .then(response => response.json())
                 .then(user => {
                     if (user.username) {
-                        document.getElementById('loginContainer').style.display = 'none'; // Hide the login container
-                        const welcomeMessage = document.getElementById('welcomeMessage');
+                        const loginContainer = document.getElementById('loginContainer');
+                        loginContainer.innerHTML = ''; // Clear the login container
+                        const welcomeMessage = document.createElement('span');
                         welcomeMessage.textContent = `Welcome, ${user.username}!`;
-                        document.getElementById('welcomeContainer').style.display = 'block'; // Display the welcome message container
+                        loginContainer.appendChild(welcomeMessage);
                     }
                 })
                 .catch(error => {

@@ -34,7 +34,7 @@
                 .then(response => response.json())
                 .then(user => {
                     if (user) {
-                        document.getElementById('loginContainer').style.display = 'none';
+                        document.getElementById('loginContainer').remove(); // Remove the login button container
                         const welcomeMessage = document.getElementById('welcomeMessage');
                         welcomeMessage.textContent = `Welcome, ${user.username}!`;
                         document.getElementById('welcomeContainer').style.display = 'block';

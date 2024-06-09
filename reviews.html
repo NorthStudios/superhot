@@ -14,7 +14,9 @@
             <li class="logo-container"><img src="superhot-logo.png" alt="Super Hot Logo"></li>
             <li><a href="#">Events</a></li>
             <li><a href="#">About</a></li>
-            
+            <li class="login-container" id="loginContainer">
+                <a href="https://discord.com/oauth2/authorize?client_id=1249013783637000252&response_type=code&redirect_uri=https%3A%2F%2Fnorthstudios.github.io%2Fsuperhot%2F&scope=identify+email+guilds+connections" class="login-button" id="loginButton">Login with Discord</a>
+            </li>
         </ul>
     </header>
 
@@ -44,45 +46,50 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Load existing reviews
-            const existingReviews = [
-                { username: 'User1', review: 'Great game!', rating: 5 },
-                { username: 'User2', review: 'Awesome mechanics!', rating: 4 }
-            ];
-
             const reviewsContainer = document.getElementById('reviewsContainer');
+            const reviewForm = document.getElementById('reviewForm');
 
-            existingReviews.forEach(review => {
-                const reviewElement = document.createElement('div');
-                reviewElement.classList.add('review');
-                reviewElement.innerHTML = `
-                    <h2>${review.username}</h2>
-                    <p>${review.review}</p>
-                    <p>Rating: ${review.rating}/5</p>
-                `;
-                reviewsContainer.appendChild(reviewElement);
-            });
+            // Load existing reviews from localStorage
+            const existingReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+            // Function to render reviews
+            function renderReviews() {
+                reviewsContainer.innerHTML = '';
+                existingReviews.forEach(review => {
+                    const reviewElement = document.createElement('div');
+                    reviewElement.classList.add('review');
+                    reviewElement.innerHTML = `
+                        <h2>${review.username}</h2>
+                        <p>${review.review}</p>
+                        <p>Rating: ${review.rating}/5</p>
+                    `;
+                    reviewsContainer.appendChild(reviewElement);
+                });
+            }
+
+            // Render existing reviews when the page loads
+            renderReviews();
 
             // Handle form submission
-            const reviewForm = document.getElementById('reviewForm');
             reviewForm.addEventListener('submit', function(event) {
                 event.preventDefault();
 
+                // Collect review data from the form
                 const username = document.getElementById('username').value;
                 const reviewText = document.getElementById('review').value;
                 const rating = document.getElementById('rating').value;
 
-                // Create a new review element
-                const newReviewElement = document.createElement('div');
-                newReviewElement.classList.add('review');
-                newReviewElement.innerHTML = `
-                    <h2>${username}</h2>
-                    <p>${reviewText}</p>
-                    <p>Rating: ${rating}/5</p>
-                `;
+                // Create a new review object
+                const newReview = { username, review: reviewText, rating };
 
-                // Add the new review to the reviews container
-                reviewsContainer.appendChild(newReviewElement);
+                // Add the new review to existing reviews
+                existingReviews.push(newReview);
+
+                // Save the updated reviews to localStorage
+                localStorage.setItem('reviews', JSON.stringify(existingReviews));
+
+                // Render reviews again
+                renderReviews();
 
                 // Clear the form fields
                 reviewForm.reset();

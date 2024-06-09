@@ -51,7 +51,7 @@ app.get('/callback', async (req, res) => {
 
         // Save user info in a cookie (for simplicity)
         res.cookie('user', JSON.stringify(user), { maxAge: 900000, httpOnly: true });
-        res.redirect('https://northstudios.github.io/superhot');
+        res.redirect('https://northstudios.github.io/superhot/home.html');
     } catch (error) {
         console.error('Error during OAuth2 flow:', error);
         res.send('An error occurred during the OAuth2 flow. Check the server logs for more details.');

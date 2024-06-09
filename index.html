@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login with Discord - Super Hot</title>
-    <link rel="stylesheet" href="resources/style.css">
+    <title>Super Hot Community</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="top-bar">
@@ -15,7 +15,7 @@
             <li><a href="#">Events</a></li>
             <li><a href="#">About</a></li>
             <li class="login-container" id="loginContainer">
-                <a href="https://discord.com/api/oauth2/authorize?client_id=1249013783637000252&redirect_uri=https://northstudios.github.io/superhot/&response_type=code&scope=identify%20email" class="login-button" id="loginButton">Login with Discord</a>
+                <a href="https://superhot-d2cc.onrender.com//login" class="login-button" id="loginButton">Login with Discord</a>
             </li>
             <li class="welcome-container" id="welcomeContainer" style="display: none;">
                 <span id="welcomeMessage">Welcome, User!</span>
@@ -28,6 +28,19 @@
         <p>Your one-stop destination for everything Super Hot.</p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://your-render-app.onrender.com')
+                .then(response => response.json())
+                .then(user => {
+                    if (user) {
+                        document.getElementById('loginContainer').style.display = 'none';
+                        const welcomeMessage = document.getElementById('welcomeMessage');
+                        welcomeMessage.textContent = `Welcome, ${user.username}!`;
+                        document.getElementById('welcomeContainer').style.display = 'block';
+                    }
+                });
+        });
+    </script>
 </body>
 </html>

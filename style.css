@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: hsl(0, 0%, 8%);
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #212121;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container h2{
+    color: darkcyan;
+}
+
+h1 {
+    font-size: 42px;
+}
+h1, h2, h3 {
+    text-align: center;
+    color: darkcyan;
+}
+
+p {
+    color:darkcyan;
+}
+.category {
+    margin-bottom: 20px;
+}
+
+.recipe {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.recipe:last-child {
+    border-bottom: none;
+}
+
+.recipe h3 {
+    color: darkcyan;
+}
+
+.recipe p {
+    margin: 5px 0;
+}
+
+/* Category Cards Styling */
+.category-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Adjust the gap between cards */
+}
+
+.category-card {
+    width: 300px;
+    padding: 20px;
+    background-color: #212121;
+    border: 1px solid #212121;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+    transition: transform 0.3s ease;
+    max-height: 300px;
+}
+
+.category-card:hover {
+    transform: translateY(-5px); /* Adjust hover effect */
+}
+
+.category-card img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.category-card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: darkcyan;
+}
+
+.category-card p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+header {
+    background-color: #212121;
+
+}
+
+.discord-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #212121; /* Discord's blue */
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+.discord-button:hover {
+    background-color:   hsl(0, 0%, 24%); /* Slightly darker blue on hover */
+}
